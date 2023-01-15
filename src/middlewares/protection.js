@@ -1,6 +1,4 @@
-const { promisify } = require('util');
 const config = require('../config/config');
-const jwt = require('jsonwebtoken');
 const AppError = require('../utils/appError');
 
 const protect = (req, res, next) => {

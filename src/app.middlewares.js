@@ -1,10 +1,9 @@
 const express = require("express");
 const cors = require("cors");
-const { protect } = require("./middlewares/protection");
-const config = require("./config/config");
 const rateLimit = require("express-rate-limit");
 const compression = require("compression");
-const AppError = require("./utils/appError");
+const swaggerUi = require("swagger-ui-express");
+const swaggerDocument = require("../E-store.json");
 const app = express();
 const helmet = require("helmet");
 app.use(helmet());
@@ -16,17 +15,16 @@ const limiter = rateLimit({
 
 app.use(limiter);
 
-
-  app.use(
-    cors({
-      origin: "*",
-    }),
-    express.json(),
-  );
-
+app.use(
+  cors({
+    origin: "*",
+  }),
+  express.json()
+);
 
 app.use(compression());
+app.get("/api/v1/docs", swaggerUi.setup(swaggerDocument));
 
-
+app.use("/api/v1/", swaggerUi.serve);
 
 module.exports = app;

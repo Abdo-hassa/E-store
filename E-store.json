@@ -1,0 +1,265 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "E-Store ",
+    "description": "E-Store"
+  },
+  "tags": [
+    {
+      "name": "Users",
+      "description": "Users endpoints"
+    }
+  ],
+  "paths": {
+    "/users/signup": {
+      "post": {
+        "tags": ["Users"],
+        "summary": "Signup endpoint",
+        "requestBody": {
+          "description": "user signup data",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "firstName": {
+                    "type": "string",
+                    "example": "john"
+                  },
+                  "lastName": {
+                    "type": "string",
+                    "example": "Alex"
+                  },
+                  "email": {
+                    "type": "string",
+                    "example": "john@john.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "john_passowrd"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "success"
+                    },
+                    "statusCode": {
+                      "type": "number",
+                      "example": 200
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "firstName": {
+                          "type": "string",
+                          "example": "john"
+                        },
+                        "lastName": {
+                          "type": "string",
+                          "example": "john"
+                        },
+                        "email": {
+                          "type": "string",
+                          "example": "mark@mark.com"
+                        },
+                        "country": {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string",
+                              "example": "England"
+                            },
+                            "imagePath": {
+                              "type": "string",
+                              "example": "https://cdn.sportmonks.com/images/countries/png/short/gb.png"
+                            },
+                            "slug": {
+                              "type": "string",
+                              "example": "england-462"
+                            }
+                          }
+                        },
+                        "id": {
+                          "type": "string",
+                          "example": "626a8bd6c8f8c416c332a906"
+                        },
+                        "accountType": {
+                          "type": "object",
+                          "properties": {
+                            "account": {
+                              "type": "string",
+                              "example": "personal"
+                            },
+                            "profession": {
+                              "type": "string",
+                              "example": "Engineer"
+                            }
+                          }
+                        },
+
+                        "organizationInfo": {
+                          "type": "array",
+                          "example": []
+                        },
+                        "verified": {
+                          "type": "boolean",
+                          "example": false
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Bad request. email:should be unique.password:should NOT have fewer than 8 characters.password:passwords are not the same"
+          }
+        }
+      }
+    },
+    "/users/login": {
+      "post": {
+        "tags": ["Users"],
+        "summary": "Login endpoint",
+        "requestBody": {
+          "description": "user login data",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "example": "john@john.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "john_passowrd"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "success"
+                    },
+                    "token": {
+                      "type": "string",
+                      "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNDBmODNjOWQzM2UyNGUwOTIwNGJhMCIsImlhdCI6MTYxNzAxNjI0NCwiZXhwIjoxNjI0NzkyMjQ0fQ.gVLc8dDHjdaFniO6njCFQl1yubmN1ISoXKn-dpC7rmE"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "firstName": {
+                          "type": "string",
+                          "example": "john"
+                        },
+                        "lastName": {
+                          "type": "string",
+                          "example": "john"
+                        },
+                        "email": {
+                          "type": "string",
+                          "example": "mark@mark.com"
+                        },
+                        "country": {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string",
+                              "example": "England"
+                            },
+                            "imagePath": {
+                              "type": "string",
+                              "example": "https://cdn.sportmonks.com/images/countries/png/short/gb.png"
+                            },
+                            "slug": {
+                              "type": "string",
+                              "example": "england-462"
+                            }
+                          }
+                        },
+                        "id": {
+                          "type": "string",
+                          "example": "626a8bd6c8f8c416c332a906"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Bad request. Incorrect email or password."
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "User": {
+        "type": "object",
+        "properties": {
+          "firstName": {
+            "type": "string",
+            "example": "john"
+          },
+          "lastName": {
+            "type": "string",
+            "example": "Alex"
+          },
+          "email": {
+            "type": "string",
+            "example": "john@john.com"
+          },
+          "password": {
+            "type": "string",
+            "example": "john_passowrd"
+          },
+          "country": {
+            "type": "object",
+            "example": {
+              "name": "England",
+              "imagePath": "https://cdn.sportmonks.com/images/countries/png/short/gb.png",
+              "slug": "england-462"
+            }
+          }
+        }
+      }
+    }
+  },
+  "servers": [
+    {
+      "description": "Try it Now on LOCAL",
+      "url": "http://localhost:3000/api/v1/"
+    }
+  ]
+}
