@@ -2,7 +2,6 @@ const app = require("./app.middlewares");
 const AppError = require("./utils/appError");
 const timeFormat = require("./utils/timeFormat");
 const errorHandler = require("./middlewares/errorHandler");
-const config = require("./config/config");
 const userRouter = require('./modules/users/user.routes');
 
 app.use('/api/v1/users', userRouter);
