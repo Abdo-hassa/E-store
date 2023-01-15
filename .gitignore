@@ -1,0 +1,14 @@
+# Dependency directories
+/node_modules/
+
+#VSCODE
+.vscode/
+
+#Env files
+.env
+.env.*
+
+#JebBrains IDEs
+../.idea/*
+.idea
+.DS_Store
