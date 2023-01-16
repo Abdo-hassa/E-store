@@ -14,7 +14,7 @@ REST-API built with express and jwt for authentication process and authorization
 # How it works ?
 
 1. type in your terminal
-2. _git clone <https://github.com/Abdo-hassa/E-commerce-Restful-Api.git>_
-3. _cd E-commerce-Restful-Api
+2. _git clone <https://github.com/Abdo-hassa/E-store.git>_
+3. _cd E-Store-Restful-Api
 4. _npm install_
-5. create .env file and put your Database_Url in it
+5. create .env file and put your DB_URI,JWT_SECRET,JWT_EXPIRES_IN in it
