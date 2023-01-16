@@ -14,8 +14,10 @@ const config = {
   jwtAccessSecret: process.env.ACCESS_JWT_SECRET,
   jwtAccessToken: process.env.ACCESS_TOKEN,
   jwtEpiresIn: process.env.JWT_EXPIRES_IN,
+  baseurl: process.env.BASE_URL,
 
   dbURI: process.env.DB_URI,
+  testURI: process.env.TEST_DB_URI,
 };
 
 module.exports = config;
