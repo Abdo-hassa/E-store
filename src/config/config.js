@@ -16,7 +16,6 @@ const config = {
   jwtEpiresIn: process.env.JWT_EXPIRES_IN,
 
   dbURI: process.env.DB_URI,
-  baseDBURI: process.env.BASE_DB_URI,
 };
 
 module.exports = config;

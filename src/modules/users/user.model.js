@@ -1,30 +1,30 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const uniqueValidator = require('mongoose-unique-validator');
-const validator = require('validator');
-const bcrypt = require('bcryptjs');
+const uniqueValidator = require("mongoose-unique-validator");
+const validator = require("validator");
+const bcrypt = require("bcryptjs");
 
 const userSchema = new Schema(
   {
     firstName: {
       type: String,
       trim: true,
-      required: [true, 'Please provide your first name'],
+      required: [true, "Please provide your first name"],
     },
 
     lastName: {
       type: String,
       trim: true,
-      required: [true, 'Please provide your last name'],
+      required: [true, "Please provide your last name"],
     },
 
     email: {
       type: String,
       trim: true,
-      required: [true, 'Please provide your email'],
+      required: [true, "Please provide your email"],
       unique: true,
       lowerCase: true,
-      validate: [validator.isEmail, 'Please provide a valid email'],
+      validate: [validator.isEmail, "Please provide a valid email"],
     },
 
     phoneNumber: {
@@ -34,9 +34,14 @@ const userSchema = new Schema(
 
     password: {
       type: String,
-      required: [true, 'Please provide a password'],
+      required: [true, "Please provide a password"],
       minLength: 8,
       select: false,
+    },
+
+    isAdmin: {
+      type: Boolean,
+      default: false,
     },
 
     country: {
@@ -47,9 +52,20 @@ const userSchema = new Schema(
 
     gender: {
       type: String,
-      enum: ['male', 'female'],
+      enum: ["male", "female"],
     },
-
+    cart: {
+      items: [
+        {
+          productid: {
+            type: Schema.Types.ObjectId,
+            ref: "Product",
+            required: true,
+          },
+          quantity: { type: Number, required: true },
+        },
+      ],
+    },
   },
   {
     versionKey: false,
@@ -60,8 +76,8 @@ const userSchema = new Schema(
 userSchema.plugin(uniqueValidator);
 
 // Model Hooks
-userSchema.pre('save', async function (next) {
-  if (!this.isModified('password')) return next();
+userSchema.pre("save", async function (next) {
+  if (!this.isModified("password")) return next();
 
   this.password = await bcrypt.hash(this.password, 10);
   this.passwordConfirm = undefined;
@@ -87,6 +103,41 @@ userSchema.methods.isPasswordChangedAfter = function (JWTTimestamp) {
   return false;
 };
 
+userSchema.methods.addToCart = function (product) {
+  const cartProductIndex = this.cart.items.findIndex((cp) => {
+    return cp.productid.toString() === product._id.toString();
+  });
+  let newQuantity = 1;
+  const updatedCartItems = [...this.cart.items];
 
-const User = mongoose.model('User', userSchema);
+  if (cartProductIndex >= 0) {
+    newQuantity = this.cart.items[cartProductIndex].quantity + 1;
+    updatedCartItems[cartProductIndex].quantity = newQuantity;
+  } else {
+    updatedCartItems.push({
+      productid: product._id,
+      quantity: newQuantity,
+    });
+  }
+  const updatedCart = {
+    items: updatedCartItems,
+  };
+  this.cart = updatedCart;
+  return this.save();
+};
+
+userSchema.methods.removeFromCart = function (productid) {
+  const updatedCartItems = this.cart.items.filter((item) => {
+    return item.productid.toString() !== productid.toString();
+  });
+  this.cart.items = updatedCartItems;
+  return this.save();
+};
+
+userSchema.methods.clearCart = function () {
+  this.cart = { items: [] };
+  return this.save();
+};
+
+const User = mongoose.model("User", userSchema);
 module.exports = User;
