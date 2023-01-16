@@ -15,6 +15,10 @@ const ProductSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+ProductSchema.index({ title: "text" });
+ProductSchema.index({ desc: "text" });
+
+
 ProductSchema.pre("findOneAndUpdate", async function (next) {
   const product = this;
   if (product._update["$set"].file) {

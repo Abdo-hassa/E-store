@@ -39,6 +39,11 @@ const userSchema = new Schema(
       select: false,
     },
 
+    isAdmin: {
+      type: Boolean,
+      default: false,
+    },
+
     country: {
       name: String,
       imagePath: String,
