@@ -30,7 +30,8 @@ module.exports = {
       TotalPrice: TotalPrice,
       address: req.body.address,
     };
-    const order = await repository.save(orderData);
+     await repository.save(orderData);
+     
     req.user.clearCart();
 
     response = {

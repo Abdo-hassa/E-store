@@ -1,6 +1,4 @@
 const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
-const path = require("path");
 const cloudinary = require("cloudinary");
 const ProductSchema = new mongoose.Schema(
   {
