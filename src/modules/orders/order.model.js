@@ -23,12 +23,3 @@ const OrderSchema = new mongoose.Schema(
 
 module.exports = mongoose.model("Order", OrderSchema);
 
-OrderSchema.methods.CalcAmout = function (products) {
-  let amount = 0;
-  const price = this.products.forEach((element) => {
-    amount = +element.product.price;
-    return amount;
-  });
-  this.amount = price;
-  return this.save();
-};

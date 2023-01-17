@@ -1,5 +1,3 @@
-const AppError = require("../../utils/appError");
-const { promisify } = require("util");
 const Product = require("../products/product.model");
 const User = require("../users/user.model");
 
@@ -11,6 +9,7 @@ module.exports = {
     const user = req.user;
     const productId = req.params.productId;
     const product = await Product.findById(productId);
+    
     user.addToCart(product);
 
     response = {

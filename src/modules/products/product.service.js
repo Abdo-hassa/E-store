@@ -1,7 +1,5 @@
 const repository = require("./product.repository");
 const AppError = require("../../utils/appError");
-const { promisify } = require("util");
-const jwt = require("jsonwebtoken");
 const config = require("../../config/config");
 const utils = require("./products.utils");
 const cloudinary = require("cloudinary");

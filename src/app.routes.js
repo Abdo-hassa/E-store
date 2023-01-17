@@ -6,14 +6,14 @@ const errorHandler = require("./middlewares/errorHandler");
 const userRouter = require("./modules/users/user.routes");
 const productRouter = require("./modules/products/product.routes");
 const orderRouter = require("./modules/orders/order.routes");
-const cardRouter = require("./modules/card/card.routes");
+const cartRouter = require("./modules/cart/cart.routes");
 
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/products", productRouter);
 app.use("/api/v1/orders", orderRouter);
-app.use("/api/v1/cards", cardRouter);
+app.use("/api/v1/cards", cartRouter);
 
-app.get("/api/v1/health", (req, res) => {
+app.get("/health", (req, res) => {
   const uptime = timeFormat(process.uptime().toString());
   const { ip, url, hostname: host, headers } = req;
 

@@ -1,15 +1,11 @@
-const express = require('express');
-const authController = require('./auth.controller');
+const express = require("express");
+const { isAuth } = require("../../middlewares/authorizationMiddlewares");
+const authController = require("./auth.controller");
 const router = express.Router();
 
-router.post('/signup', authController.signup());
-router.post('/login', authController.login());
+router.post("/signup", authController.signup());
+router.post("/login", authController.login());
 
-// Protect all routes after this middleware
-router.use(authController.protect());;
-
-router.get('/logout', authController.logout());
-
-
+router.get("/logout", isAuth, authController.logout());
 
 module.exports = router;

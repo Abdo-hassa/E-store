@@ -20,19 +20,7 @@ module.exports = {
       res.status(response.statusCode).json(response);
     });
   },
-
-  protect() {
-    return catchAsync(async (req, res, next) => {
-      const { err, response } = await authService.protect(req.headers);
-
-      if (err) return next(err);
-
-      // GRANT ACCESS TO PROTECTED ROUTE
-      req.user = response.data;
-      next();
-    });
-  },
-
+  
   logout() {
     return (req, res) => {
       res.cookie("token", "loggedout", {

@@ -14,7 +14,7 @@ exports.isAuth = catchAsync(async (req, res, next) => {
     throw new AppError("Not authenticated", 401);
   } else {
     const token = req.headers.authorization.split(" ")[1];
-    let decodedToken = await promisify(jwt.verify)(token, config.jwtSecret);
+    let decodedToken = jwt.verify(token, config.jwtSecret);
 
     let user = await User.findById(decodedToken.id);
     req.user = user;

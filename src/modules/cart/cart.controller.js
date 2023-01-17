@@ -1,26 +1,26 @@
-const cardService = require("../card/card.service");
+const cartService = require("./cart.service");
 const catchAsync = require("../../utils/catchAsync");
 
 module.exports = {
-  addCard() {
+  addCart() {
     return catchAsync(async (req, res, next) => {
-      const result = await cardService.addToCart(req);
+      const result = await cartService.addToCart(req);
       if (result.err) return next(result.err);
       res.status(result.response.statusCode).json(result.response);
     });
   },
 
-  deleteFromCard() {
+  deleteFromCart() {
     return catchAsync(async (req, res, next) => {
-      const result = await cardService.deleteFromCart(req);
+      const result = await cartService.deleteFromCart(req);
       if (result.err) return next(result.err);
       res.status(result.response.statusCode).json(result.response);
     });
   },
 
-  getCard() {
+  getCart() {
     return catchAsync(async (req, res, next) => {
-      const result = await cardService.getOne(req);
+      const result = await cartService.getOne(req);
       if (result.err) return next(result.err);
       res.status(result.response.statusCode).json(result.response);
     });
